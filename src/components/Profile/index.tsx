@@ -12,45 +12,61 @@ import {
   ProfileHeader,
   ProfileInfo,
 } from './styles'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+
+interface Profile {
+  name: string
+  bio: string
+  followers: number
+  company: string
+  avatar_url: string
+  html_url: string
+  login: string
+}
 
 export function Profile() {
+  const [profile, setProfile] = useState<Profile>({} as Profile)
+
+  async function searchGitHubProfile() {
+    const response = await api.get('/users/Pedro-HFelix')
+    const data = await response.data
+    setProfile(data)
+  }
+
+  useEffect(() => {
+    searchGitHubProfile()
+  }, [])
+
   return (
     <ProfileContainer>
-      <img
-        src="https://avatars.githubusercontent.com/u/108374688?v=4"
-        alt="Profile Image"
-      />
+      <img src={profile.avatar_url} alt="Profile Image" />
 
       <ProfileContent>
         <ProfileHeader>
-          <h2>Pedro</h2>
+          <h2>{profile.name}</h2>
           <section>
-            <a href="">
+            <a href={profile.html_url}>
               GITHUB
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </a>
           </section>
         </ProfileHeader>
 
-        <ProfileDescription>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam
-          dolorem dolore rem est asperiores autem dignissimos iste laudantium?
-          Vel rem quibusdam corporis ea voluptate eius nemo consectetur dolore
-          vitae omnis!
-        </ProfileDescription>
+        <ProfileDescription>{profile.bio}</ProfileDescription>
 
         <ProfileInfo>
           <p>
             <FontAwesomeIcon icon={faGithub} />
-            Pedro
+            {profile.login}
           </p>
           <p>
             <FontAwesomeIcon icon={faBuilding} />
-            Puc Minas
+            {profile.company}
           </p>
           <p>
             <FontAwesomeIcon icon={faUserGroup} />
-            200 seguidoeres
+            {profile.followers} seguidoeres
           </p>
         </ProfileInfo>
       </ProfileContent>

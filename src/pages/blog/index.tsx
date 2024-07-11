@@ -1,7 +1,11 @@
 import { Profile } from '../../components/Profile'
 import { GitHubCards } from './components/GitHubCards'
-import { SearchBlog } from './components/SearchBlog'
-import { BlogMainContainer, TitleContainer } from './styles'
+import { SearchBlog } from './components/searchBlog'
+import {
+  BlogMainContainer,
+  GitHubCardsContainerGroup,
+  TitleContainer,
+} from './styles'
 
 export function Blog() {
   return (
@@ -13,7 +17,9 @@ export function Blog() {
       </TitleContainer>
       <SearchBlog />
 
-      <GitHubCards />
+      <GitHubCardsContainerGroup>
+        <GitHubCards />
+      </GitHubCardsContainerGroup>
     </BlogMainContainer>
   )
 }

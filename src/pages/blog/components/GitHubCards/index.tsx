@@ -1,19 +1,42 @@
 import { GitHubCardsContainer, GitHubCardsSpan } from './styles'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { useContextSelector } from 'use-context-selector'
+import { IssueContext } from '../../../../contexts/Issues-Context'
 
 export function GitHubCards() {
-  function SerachGitIssuesBlog() {}
+  const issues = useContextSelector(IssueContext, (context) => {
+    return context.filteredIssues
+  })
+
+  const formatContent = (text: string) => {
+    const formattedText = text
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0)
+      .join('\n')
+
+    return formattedText.length > 181
+      ? formattedText.substring(0, 150) + ' ...'
+      : formattedText
+  }
 
   return (
-    <GitHubCardsContainer>
-      <GitHubCardsSpan>
-        <h3>JavaScript data types and data structures</h3>
-        <p> Há um dia </p>
-      </GitHubCardsSpan>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in ...
-      </p>
-    </GitHubCardsContainer>
+    <>
+      {issues.map((issue) => (
+        <GitHubCardsContainer key={issue.number}>
+          <GitHubCardsSpan>
+            <h3>{issue.title}</h3>
+            <p>
+              {formatDistanceToNow(new Date(issue.created_at), {
+                locale: ptBR,
+                addSuffix: true,
+              })}
+            </p>
+          </GitHubCardsSpan>
+          <p>{formatContent(issue.body)}</p>
+        </GitHubCardsContainer>
+      ))}
+    </>
   )
 }

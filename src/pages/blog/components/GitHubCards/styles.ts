@@ -12,16 +12,21 @@ export const GitHubCardsContainer = styled.div`
 
   background-color: ${(props) => props.theme['base-post']};
 
-  &:last-child {
-    width: 352px;
+  margin-bottom: 32px;
+  border-radius: 10px;
 
+  &:last-child {
     color: ${(props) => props.theme['base-text']};
 
     white-space: pre-wrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: ${mixin.fonts.sizes.medium};
+  }
 
-    margin-bottom: 32px;
+  &:hover {
+    border: 2px solid ${(props) => props.theme['base-label']};
+    padding: 30px;
   }
 `
 
@@ -32,13 +37,12 @@ export const GitHubCardsSpan = styled.span`
 
   h3 {
     flex: 1;
-    max-width: 283px;
     color: ${(props) => props.theme['base-title']};
-    font-size: ${mixin.fonts.sizes.medium};
+    font-size: ${mixin.fonts.sizes.mediumPlus};
   }
 
   p {
-    margin-top: -20px;
+    width: 70px;
     color: ${(props) => props.theme['base-span']};
     font-size: ${mixin.fonts.sizes.smallPlus};
   }

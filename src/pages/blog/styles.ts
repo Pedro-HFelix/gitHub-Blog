@@ -18,3 +18,12 @@ export const TitleContainer = styled.div`
 
   margin-top: 72px;
 `
+export const GitHubCardsContainerGroup = styled.div`
+  width: 100%;
+
+  margin-top: 48px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+`

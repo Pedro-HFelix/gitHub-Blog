@@ -13,4 +13,4 @@ export const mixin = {
       bold: 700,
     },
   },
-}
+} as const
